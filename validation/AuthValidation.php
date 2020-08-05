@@ -79,22 +79,14 @@ class AuthValidation {
                 }
 
                 //email重複チェック
-                try {
-                    $pdo = new PDO(DSN, USERNAME, PASSWORD, OPTIONS);
+                $email = $this->data['email'];
 
-                    $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
-                    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-                    $stmt->execute();
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $action = new Auth;
+                $action->setEmail($email);
+                $result = $action->getUserByEmail();
 
-                    if($result){
-                        $this->error['email'] = 'このメールアドレスは既に登録されています';
-                    }
-
-                } catch (Exception $e) {
-
-                    exit($e->getMessage());
-
+                if($result){
+                    $this->error['email'] = 'このメールアドレスは既に登録されています';
                 }
 
             }
