@@ -60,7 +60,8 @@ class Auth {
 
       $this->pdo->rollBack();
 
-      echo $e->getMessage();
+      error_log($e->getMessage());
+      return false;
     }
   }
 
