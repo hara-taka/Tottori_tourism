@@ -11,7 +11,7 @@ session_start();
 $error = $_SESSION['error'];
 unset($_SESSION["error"]);
 
-if($_POST) {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
   $action = new AuthController;
   $action->register();
 }
@@ -19,7 +19,7 @@ if($_POST) {
 $name = '';
 $email = '';
 
-if($_GET) {
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
   if(isset($_GET['name'])) {
     $name = $_GET['name'];
   }
