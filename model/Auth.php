@@ -67,20 +67,14 @@ class Auth {
 
   public function getUserByEmail() {
       try {
-          $this->pdo->beginTransaction();
-
           $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
           $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
           $stmt->execute();
           $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-          $this->pdo->commit();
-
           return $result;
 
       } catch (Exception $e) {
-
-          $this->pdo->rollBack();
 
           error_log($e->getMessage());
           return false;
