@@ -1,19 +1,19 @@
 <?php
-//ini_set("display_errors", 1);
-//error_reporting(E_ALL);
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
 
 require_once '../../config/database.php';
-require_once '../../model/Auth.php';
-require_once '../../controller/AuthController.php';
-require_once '../../validation/AuthValidation.php';
+require_once '../../model/User.php';
+require_once '../../controller/UserController.php';
+require_once '../../validation/UserValidation.php';
 
 session_start();
 $error = $_SESSION['error'];
 unset($_SESSION["error"]);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $action = new AuthController;
-    $action->register();
+    $action = new UserController;
+    $action->create();
 }
 
 $name = '';

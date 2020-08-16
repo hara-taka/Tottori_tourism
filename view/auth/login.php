@@ -3,7 +3,7 @@
 //error_reporting(E_ALL);
 
 require_once '../../config/database.php';
-require_once '../../model/Auth.php';
+require_once '../../model/User.php';
 require_once '../../controller/AuthController.php';
 require_once '../../validation/AuthValidation.php';
 

@@ -1,6 +1,6 @@
 <?php
 
-class Auth {
+class User {
     private $name;
     private $email;
     private $password;
@@ -38,7 +38,7 @@ class Auth {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function register() {
+    public function create() {
 
         try {
             $this->pdo->beginTransaction();
@@ -75,24 +75,6 @@ class Auth {
           return $result;
 
       } catch (Exception $e) {
-
-          error_log($e->getMessage());
-          return false;
-
-      }
-  }
-
-  public function login() {
-
-      try {
-          $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
-          $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
-          $stmt->execute();
-          $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-          return $result;
-
-      } catch (PDOException $e) {
 
           error_log($e->getMessage());
           return false;
