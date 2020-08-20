@@ -1,29 +1,25 @@
 <?php
-ini_set("display_errors", 1);
-error_reporting(E_ALL);
+//ini_set("display_errors", 1);
+//error_reporting(E_ALL);
 
 require_once '../../config/database.php';
 require_once '../../model/User.php';
-require_once '../../controller/UserController.php';
-require_once '../../validation/UserValidation.php';
+require_once '../../controller/AuthController.php';
+require_once '../../validation/AuthValidation.php';
 
 session_start();
 $error = $_SESSION['error'];
 unset($_SESSION["error"]);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $action = new UserController;
-    $action->create();
+    $action = new AuthController;
+    $action->login();
 }
 
 $name = '';
 $email = '';
 
 if($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if(isset($_GET['name'])) {
-        $name = $_GET['name'];
-    }
-
     if(isset($_GET['email'])) {
         $email = $_GET['email'];
     }
@@ -35,21 +31,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 <html>
     <head>
         <meta charset="utf-8">
-        <title>ユーザー登録</title>
+        <title>ログイン</title>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div class="userResister_wrapper">
-            <h1>Register</h1>
+        <div class="login_wrapper">
+            <h1>Login</h1>
             <form action="" method="post">
-                <h2>ユーザー名</h2>
-                <div class="error">
-                    <?php
-                        if(!empty($error['name'])) echo $error['name'];
-                    ?>
-                </div>
-                <input type="text" name="name" value="<?php echo $name;?>">
-
                 <h2>メールアドレス</h2>
                 <div class="error">
                     <?php
@@ -65,15 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
                     ?>
                 </div>
                 <input type="password" name="password">
-
-                <h2>パスワード(確認用)</h2>
-                <div class="error">
-                    <?php
-                        if(!empty($error['password_re'])) echo $error['password_re'];
-                    ?>
-                </div>
-                <input type="password" name="password_re">
-                <input type="submit" class="btn" value="登録する">
+                <input type="submit" class="btn" value="ログイン">
             </form>
         </div>
     </body>

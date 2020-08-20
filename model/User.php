@@ -1,6 +1,6 @@
 <?php
 
-class Auth {
+class User {
     private $name;
     private $email;
     private $password;
@@ -38,7 +38,7 @@ class Auth {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function register() {
+    public function create() {
 
         try {
             $this->pdo->beginTransaction();
